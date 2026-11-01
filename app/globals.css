@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+:root {
+  /* White + teal theme (from the client banner) — white page background, slate text */
+  --background: #FFFFFF;
+  --foreground: #0F172A;
+
+  /* Primary — Teal. 400 is the banner teal; 500 is deliberately much darker so that
+     500 (main CTA) keeps readable contrast with white text. */
+  --color-primary-50: #F0FAFB;
+  --color-primary-100: #D9F2F4;
+  --color-primary-200: #B5E6EA;
+  --color-primary-300: #7FD3DA;
+  --color-primary-400: #4FC3D0;
+  --color-primary-500: #0E7C86;
+  --color-primary-600: #0B666F;
+  --color-primary-700: #09535A;
+  --color-primary-800: #074249;
+  --color-primary-900: #05333A;
+
+  /* Accent — light teal. Badges, small icons, tags, decorative accents. */
+  --color-accent-50: #F0FAFB;
+  --color-accent-100: #D9F2F4;
+  --color-accent-400: #4FC3D0;
+  --color-accent-500: #2AA5B2;
+  --color-accent-600: #0B666F;
+
+  /* Brand token family — mapped 1:1 onto the Primary scale above. */
+  --color-brand-primary: #0E7C86;
+  --color-brand-primary-hover: #0B666F;
+  --color-brand-primary-active: #09535A;
+  --color-brand-primary-light: #7FD3DA;
+  --color-brand-soft: #D9F2F4;
+  --color-brand-50: #F0FAFB;
+  --color-brand-100: #D9F2F4;
+  --color-brand-200: #B5E6EA;
+  --color-brand-300: #7FD3DA;
+  --color-brand-400: #4FC3D0;
+  --color-brand-500: #0E7C86;
+  --color-brand-600: #0B666F;
+  --color-brand-700: #09535A;
+  --color-brand-800: #074249;
+  --color-brand-900: #05333A;
+
+  --color-surface: #FFFFFF;
+  --color-border: #E2E8EA;
+  --color-divider: #E2E8EA;
+  --color-text-secondary: #56646B;
+  --color-text-disabled: #9CA3AF;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #DC2626;
+  --color-info: #3B82F6;
+
+  /* Veterinary section — scoped teal palette (token names kept so components need no edits). */
+  --color-vet-yellow-50: #F0FAFB;
+  --color-vet-yellow-100: #D9F2F4;
+  --color-vet-yellow-200: #B5E6EA;
+  --color-vet-yellow-300: #7FD3DA;
+  --color-vet-yellow-400: #4FC3D0;
+  --color-vet-yellow-500: #2AA5B2;
+  --color-vet-yellow-600: #0E7C86;
+  --color-vet-yellow-700: #0B666F;
+  --color-vet-yellow-800: #09535A;
+  --color-vet-yellow-900: #05333A;
+  /* end veterinary tokens */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-forest: var(--color-brand-500);
+  --color-brand-marigold: var(--color-brand-500);
+  --color-brand-ink: var(--foreground);
+  --color-brand-paper: var(--color-surface);
+  --color-brand-mist: var(--color-brand-50);
+  --color-brand-clay: var(--color-error);
+  --color-border: var(--color-border);
+  --color-divider: var(--color-divider);
+  --color-secondary: var(--color-text-secondary);
+  --color-disabled: var(--color-text-disabled);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+  --color-surface: var(--color-surface);
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-brand-200: var(--color-brand-200);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-400: var(--color-brand-400);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-700: var(--color-brand-700);
+  --color-brand-800: var(--color-brand-800);
+  --color-brand-900: var(--color-brand-900);
+  --color-primary-50: var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+  --color-accent-50: var(--color-accent-50);
+  --color-accent-100: var(--color-accent-100);
+  --color-accent-400: var(--color-accent-400);
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-600: var(--color-accent-600);
+  --color-vet-yellow-50: var(--color-vet-yellow-50);
+  --color-vet-yellow-100: var(--color-vet-yellow-100);
+  --color-vet-yellow-200: var(--color-vet-yellow-200);
+  --color-vet-yellow-300: var(--color-vet-yellow-300);
+  --color-vet-yellow-400: var(--color-vet-yellow-400);
+  --color-vet-yellow-500: var(--color-vet-yellow-500);
+  --color-vet-yellow-600: var(--color-vet-yellow-600);
+  --color-vet-yellow-700: var(--color-vet-yellow-700);
+  --color-vet-yellow-800: var(--color-vet-yellow-800);
+  --color-vet-yellow-900: var(--color-vet-yellow-900);
+  --font-sans: var(--font-poppins);
+  --font-display: var(--font-poppins);
+  --font-mono: var(--font-poppins);
+  --font-body: var(--font-poppins);
+}
+
+html,
+body {
+  max-width: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), sans-serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+p,
+span,
+a,
+button,
+input,
+select,
+textarea,
+label,
+small,
+strong,
+li,
+div {
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Rich text product description — shared by the admin editor's editable area
+   (components/admin/RichTextEditor.tsx) and the sanitized, rendered output on the product
+   detail page (app/products/[slug]/page.tsx), so editing and the live page match. Scoped to
+   this one class only: Tailwind's preflight strips default list markers/margins, so lists and
+   paragraph spacing need to be restored explicitly here rather than leaking a global list/
+   paragraph style change into the rest of the site. */
+.product-description p {
+  margin: 0 0 0.75em;
+}
+
+.product-description p:last-child {
+  margin-bottom: 0;
+}
+
+.product-description ul,
+.product-description ol {
+  margin: 0 0 0.75em 1.25em;
+  padding: 0;
+}
+
+.product-description ul {
+  list-style: disc;
+}
+
+.product-description ol {
+  list-style: decimal;
+}
+
+.product-description li {
+  margin: 0.25em 0;
+}
+
+.product-description li > p {
+  margin: 0;
+}
+
+.product-description strong,
+.product-description b {
+  font-weight: 700;
+}
+
+.product-description em,
+.product-description i {
+  font-style: italic;
+}
