@@ -174,11 +174,11 @@ export default function Navbar({ categories }: NavbarProps) {
           className="
             relative
             flex
-            min-h-[60px]
+            min-h-[72px]
             items-center
             justify-between
             gap-3
-            lg:min-h-[76px]
+            lg:min-h-[88px]
             lg:gap-6
             lg:grid
             lg:grid-cols-[1fr_auto_1fr]
@@ -219,31 +219,13 @@ export default function Navbar({ categories }: NavbarProps) {
               className="flex items-center gap-2.5"
             >
               <Image
-                src="/pets-friendly-logo.png"
+                src="/pets-friendly-logo-full.png"
                 alt=""
-                width={662}
-                height={411}
+                width={635}
+                height={524}
                 priority
-                className="
-                  h-[34px]
-                  w-auto
-                  min-[380px]:h-[38px]
-                  object-contain
-                  sm:h-[46px]
-                  lg:h-[50px]
-                "
+                className="h-[60px] w-auto object-contain lg:h-[72px]"
               />
-
-              {/* Name beside the mark — always shown; scaled down below 380px and on 1024–1279px,
-                  where the nav links and search leave less room */}
-              <span className="block whitespace-nowrap leading-tight">
-                <span className="block font-display text-sm font-bold text-foreground min-[380px]:text-base lg:text-sm xl:text-base">
-                  Pet’s Friendly Shop
-                </span>
-                <span className="block text-[11px] text-secondary min-[380px]:text-xs lg:text-[11px] xl:text-xs">
-                  &amp; Veterinary Products
-                </span>
-              </span>
             </Link>
           </div>
 
@@ -527,13 +509,11 @@ export default function Navbar({ categories }: NavbarProps) {
                 CART
             ================================================== */}
 
-            {/* Hidden below 380px so the shop name fits — MobileBottomNav has a Cart tab there */}
             <Link
               href="/cart"
               aria-label={`Cart (${itemCount})`}
               className="
-                hidden
-                min-[380px]:flex
+                flex
                 items-center
                 gap-1.5
                 rounded-full
