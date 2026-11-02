@@ -95,9 +95,9 @@ export default function Footer({ settings }: FooterProps) {
   return (
     <footer className="overflow-hidden border-t border-divider bg-surface text-foreground">
       <div className="mx-auto max-w-7xl px-5 pt-14 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
-          {/* CONTACT */}
-          <div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:gap-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
+          {/* CONTACT — full width on mobile; the link groups below pair up two per row */}
+          <div className="col-span-2 sm:col-span-1">
             <p className="text-base font-bold text-foreground">Every pet deserves the best</p>
             <ul className="mt-5 space-y-4 text-base text-secondary">
               {settings.email ? (

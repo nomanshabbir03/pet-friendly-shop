@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/lib/cart-context';
 import CategoryNavBar from '@/components/CategoryNavBar';
 import MobileNavMenu from '@/components/MobileNavMenu';
+import { FOCUS_MOBILE_SEARCH_EVENT, OPEN_MOBILE_MENU_EVENT } from '@/components/MobileBottomNav';
 import type { LiveCategory } from '@/lib/category-data';
 
 const navLinks = [
@@ -37,6 +38,22 @@ export default function Navbar({ categories }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const categoryMenuRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLInputElement>(null);
+
+  // MobileBottomNav's "Categories" and "Search" tabs — the drawer and the mobile search input
+  // live here, so the bar signals through window events (see MobileBottomNav.tsx).
+  useEffect(() => {
+    const openMenu = () => setMobileMenuOpen(true);
+    const focusSearch = () => mobileSearchRef.current?.focus();
+
+    window.addEventListener(OPEN_MOBILE_MENU_EVENT, openMenu);
+    window.addEventListener(FOCUS_MOBILE_SEARCH_EVENT, focusSearch);
+
+    return () => {
+      window.removeEventListener(OPEN_MOBILE_MENU_EVENT, openMenu);
+      window.removeEventListener(FOCUS_MOBILE_SEARCH_EVENT, focusSearch);
+    };
+  }, []);
 
   // Close the mobile drawer automatically if the viewport is resized/rotated up into the
   // desktop layout while it's open (e.g. a tablet rotated from portrait to landscape).
@@ -147,7 +164,7 @@ export default function Navbar({ categories }: NavbarProps) {
   };
 
   return (
-    <header className="relative z-50 w-full border-b border-divider bg-surface text-foreground">
+    <header className="sticky top-0 z-50 w-full border-b border-divider bg-surface text-foreground">
       {/* ========================================================
           MAIN NAVBAR
       ======================================================== */}
@@ -157,10 +174,12 @@ export default function Navbar({ categories }: NavbarProps) {
           className="
             relative
             flex
-            min-h-[76px]
+            min-h-[60px]
             items-center
             justify-between
-            gap-6
+            gap-3
+            lg:min-h-[76px]
+            lg:gap-6
             lg:grid
             lg:grid-cols-[1fr_auto_1fr]
           "
@@ -206,20 +225,22 @@ export default function Navbar({ categories }: NavbarProps) {
                 height={411}
                 priority
                 className="
-                  h-[42px]
+                  h-[34px]
                   w-auto
+                  min-[380px]:h-[38px]
                   object-contain
                   sm:h-[46px]
                   lg:h-[50px]
                 "
               />
 
-              {/* Name beside the mark — hidden on 1024–1279px, where the links and search leave no room */}
-              <span className="hidden whitespace-nowrap leading-tight min-[420px]:block lg:hidden xl:block">
-                <span className="block font-display text-base font-bold text-foreground">
+              {/* Name beside the mark — always shown; scaled down below 380px and on 1024–1279px,
+                  where the nav links and search leave less room */}
+              <span className="block whitespace-nowrap leading-tight">
+                <span className="block font-display text-sm font-bold text-foreground min-[380px]:text-base lg:text-sm xl:text-base">
                   Pet’s Friendly Shop
                 </span>
-                <span className="block text-xs text-secondary">
+                <span className="block text-[11px] text-secondary min-[380px]:text-xs lg:text-[11px] xl:text-xs">
                   &amp; Veterinary Products
                 </span>
               </span>
@@ -454,7 +475,8 @@ export default function Navbar({ categories }: NavbarProps) {
                 bg-surface
                 sm:w-[230px]
                 lg:flex
-                lg:w-[250px]
+                lg:w-[190px]
+                xl:w-[250px]
               "
             >
               <input
@@ -505,11 +527,13 @@ export default function Navbar({ categories }: NavbarProps) {
                 CART
             ================================================== */}
 
+            {/* Hidden below 380px so the shop name fits — MobileBottomNav has a Cart tab there */}
             <Link
               href="/cart"
               aria-label={`Cart (${itemCount})`}
               className="
-                flex
+                hidden
+                min-[380px]:flex
                 items-center
                 gap-1.5
                 rounded-full
@@ -547,6 +571,43 @@ export default function Navbar({ categories }: NavbarProps) {
             </Link>
           </div>
         </div>
+
+        {/* ====================================================
+            MOBILE SEARCH — always visible below `lg` (the desktop
+            search above is hidden there)
+        ==================================================== */}
+
+        <form
+          role="search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSearch();
+          }}
+          className="pb-3 lg:hidden"
+        >
+          <div className="flex h-11 items-center overflow-hidden rounded-full border border-divider bg-brand-50/70 transition focus-within:border-brand-500 focus-within:bg-surface focus-within:ring-2 focus-within:ring-brand-500/20">
+            <Search className="ml-4 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
+
+            {/* text-base (16px) stops iOS Safari from zooming the page in on focus */}
+            <input
+              ref={mobileSearchRef}
+              type="search"
+              enterKeyHint="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search food, toys, brands..."
+              aria-label="Search products"
+              className="h-full min-w-0 flex-1 bg-transparent px-3 text-base text-foreground outline-none placeholder:text-sm placeholder:text-muted"
+            />
+
+            <button
+              type="submit"
+              className="mr-1 h-9 shrink-0 rounded-full bg-brand-500 px-4 text-sm font-semibold text-white transition active:opacity-80"
+            >
+              Search
+            </button>
+          </div>
+        </form>
       </div>
 
       {/* ========================================================

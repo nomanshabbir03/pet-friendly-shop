@@ -6,6 +6,7 @@ import { ShoppingBag, Zap } from 'lucide-react';
 import VariantSelector from '@/components/VariantSelector';
 import { BUY_NOW_CHECKOUT_URL, saveBuyNowItem } from '@/lib/buy-now';
 import { useCart } from '@/lib/cart-context';
+import MobileBuyBar from '@/components/MobileBuyBar';
 
 type Variant = {
   label: string;
@@ -126,6 +127,13 @@ export default function AddToCartButton({
       </div>
 
       {feedback ? <p className="text-sm font-medium text-brand-700">{feedback}</p> : null}
+
+      <MobileBuyBar
+        price={(discountPrice ?? price) + (variants.find((variant) => variant.label === selectedVariant)?.priceModifier ?? 0)}
+        onAddToCart={handleAddToCart}
+        onBuyNow={handleBuyNow}
+        added={Boolean(feedback)}
+      />
     </div>
   );
 }

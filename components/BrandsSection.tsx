@@ -30,9 +30,9 @@ export default async function BrandsSection() {
   }
 
   return (
-    <section className="mt-10">
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <h2 className="text-2xl font-semibold text-foreground">Our Top Brands</h2>
+    <section className="mt-8 lg:mt-10">
+      <div className="mb-4 flex lg:mb-6 items-center justify-between gap-4">
+        <h2 className="text-xl font-semibold text-foreground lg:text-2xl">Our Top Brands</h2>
         {/* <Link
           href="/brands"
           className="text-sm font-semibold text-brand-500 transition hover:text-brand-600"
@@ -41,12 +41,12 @@ export default async function BrandsSection() {
         </Link> */}
       </div>
 
-      <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-4 lg:grid-cols-5">
         {brands.map((brand) => (
           <Link
             key={brand._id}
             href={`/brand/${slugifyBrand(brand.name)}`}
-            className="flex h-32 items-center justify-center rounded-2xl transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+            className="flex h-20 w-28 shrink-0 items-center sm:w-auto justify-center rounded-2xl border border-divider p-2 sm:h-32 sm:border-0 sm:p-0 transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
           >
             <Image
               src={brand.logoUrl}
@@ -54,7 +54,7 @@ export default async function BrandsSection() {
               width={200}
               height={80}
               loading="lazy"
-              className="max-h-24 w-auto object-contain grayscale opacity-70 transition duration-300 hover:grayscale-0 hover:opacity-100"
+              className="max-h-14 w-auto object-contain sm:max-h-24 sm:grayscale sm:opacity-70 transition duration-300 hover:grayscale-0 hover:opacity-100"
             />
           </Link>
         ))}

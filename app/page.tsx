@@ -11,6 +11,7 @@ import VeterinarySection from '@/components/VeterinarySection';
 import FaqSection from '@/components/faqs/FaqSection';
 import MostSellingProducts from '@/components/MostSellingProducts';
 import TrustBar from '@/components/TrustBar';
+import ProductRail from '@/components/ProductRail';
 import { getLiveCategories } from '@/lib/category-data';
 import { getVetServices } from '@/lib/vet-services';
 import { getSiteSettings } from '@/lib/site-settings';
@@ -70,6 +71,20 @@ async function getMostSellingProducts() {
   return JSON.parse(JSON.stringify(products)); // safely convert Mongoose docs to plain objects
 }
 
+// Products with a real discount (discountPrice set and below price) — the "Sale" row. Hidden
+// automatically when none are discounted.
+async function getDealProducts() {
+  await connectDB();
+  const products = await Product.find({
+    isActive: true,
+    $expr: { $and: [{ $gt: ['$discountPrice', 0] }, { $lt: ['$discountPrice', '$price'] }] },
+  })
+    .sort({ createdAt: -1 })
+    .limit(12)
+    .lean();
+  return JSON.parse(JSON.stringify(products)); // safely convert Mongoose docs to plain objects
+}
+
 const shopByPet = [
   { slug: 'dog', label: 'Dogs', emoji: '🐶', tint: 'bg-brand-100' },
   { slug: 'cat', label: 'Cats', emoji: '🐱', tint: 'bg-brand-100' },
@@ -81,6 +96,7 @@ const shopByPet = [
 export default async function Home() {
   const products = await getProducts();
   const mostSellingProducts = await getMostSellingProducts();
+  const dealProducts = await getDealProducts();
   const liveCategories = await getLiveCategories();
   const heroSlides = await getHeroSlides();
   const vetServices = await getVetServices();
@@ -94,14 +110,12 @@ export default async function Home() {
   }));
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-      <div className="mb-8">
+    <main className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 lg:py-8">
+      <div className="mb-2 lg:mb-8">
         <HeroSlider slides={heroSlides} />
       </div>
 
       <CategoryGrid categories={categoryItems} />
-
-      <HowItWorks />
 
       {/* <section className="rounded-[28px] bg-gradient-to-br from-brand-500 via-brand-300 to-brand-100 p-6 text-surface shadow-sm sm:p-8 lg:p-10">
         <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
@@ -163,23 +177,27 @@ export default async function Home() {
         </div>
       </section> */}
 
+      <ProductRail eyebrow="Limited time" title="Sale & Deals" href="/products" products={dealProducts} />
+
       <MostSellingProducts products={mostSellingProducts} />
 
-      <TrustBar />
+      <HowItWorks />
 
-      <section className="mt-12">
-        <div className="mb-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">
+      <BrandsSection />
+
+      <section className="mt-8 lg:mt-12">
+        <div className="mb-4 lg:mb-10 lg:text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-500 lg:text-sm">
             Hand-picked for you
           </p>
-          <h2 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">Featured Products</h2>
-          <span className="mx-auto mt-4 block h-1 w-16 rounded-full bg-brand-500" />
+          <h2 className="mt-1 font-display text-xl font-bold text-foreground lg:mt-3 lg:text-4xl">Featured Products</h2>
+          <span className="mx-auto mt-4 hidden h-1 w-16 rounded-full bg-brand-500 lg:block" />
         </div>
 
         {products.length === 0 ? (
           <p className="rounded-2xl border border-divider bg-surface p-6 text-secondary">No products yet.</p>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
             {products.map((product: ProductCard) => (
               <ProductCard key={product._id} product={product} />
             ))}
@@ -200,7 +218,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <BrandsSection />
+      <TrustBar />
 
       <VeterinarySection services={vetServices} whatsappNumber={siteSettings.whatsappNumber} />
 

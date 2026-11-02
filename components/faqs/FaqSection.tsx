@@ -33,11 +33,11 @@ export default function FaqSection({ showHeading = true, compact = false, catego
   };
 
   return (
-    <section className={`mt-12 ${compact ? 'mx-auto max-w-3xl' : ''}`} aria-label="Frequently asked questions">
+    <section className={`mt-8 lg:mt-12 ${compact ? 'mx-auto max-w-3xl' : ''}`} aria-label="Frequently asked questions">
       {showHeading ? (
-        <div className="mb-10 text-center">
+        <div className="mb-5 text-center lg:mb-10">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">FAQs</p>
-          <h2 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">
+          <h2 className="mt-2 font-display text-2xl font-bold text-foreground lg:mt-3 lg:text-4xl">
             Frequently asked questions
           </h2>
           <span className="mx-auto mt-4 block h-1 w-16 rounded-full bg-brand-500" />
@@ -56,9 +56,9 @@ export default function FaqSection({ showHeading = true, compact = false, catego
                 onClick={() => toggleCategory(category.title)}
                 aria-expanded={categoryOpen}
                 aria-controls={panelId}
-                className={`flex w-full items-center justify-between gap-4 rounded-2xl bg-brand-500 px-6 py-5 text-left text-white transition hover:bg-brand-600 ${compact ? 'sm:px-6 sm:py-4' : 'sm:px-10 sm:py-6'}`}
+                className={`flex w-full items-center justify-between gap-4 rounded-2xl bg-brand-500 px-5 py-4 text-left text-white transition hover:bg-brand-600 ${compact ? 'sm:px-6 sm:py-4' : 'sm:px-10 sm:py-6'}`}
               >
-                <span className={`font-display font-semibold ${compact ? 'text-lg sm:text-xl' : 'text-2xl sm:text-4xl'}`}>{category.title}</span>
+                <span className={`font-display font-semibold ${compact ? 'text-base sm:text-xl' : 'text-xl sm:text-4xl'}`}>{category.title}</span>
                 {categoryOpen ? (
                   <X className="h-6 w-6 shrink-0" aria-hidden="true" />
                 ) : (

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import FloatingVeterinaryButton from '@/components/FloatingVeterinaryButton';
 import AnnouncementBar from '@/components/AnnouncementBar';
+import MobileBottomNav from '@/components/MobileBottomNav';
 import { getLiveCategories } from '@/lib/category-data';
 import { getSiteSettings } from '@/lib/site-settings';
 import "./globals.css";
@@ -56,6 +57,7 @@ export default async function RootLayout({
           <Footer settings={siteSettings} />
           <FloatingVeterinaryButton />
           <FloatingWhatsAppButton whatsappNumber={siteSettings.whatsappNumber} />
+          <MobileBottomNav whatsappNumber={siteSettings.whatsappNumber} />
         </CartProvider>
       </body>
     </html>

@@ -6,6 +6,7 @@ import { ShoppingBag, Zap } from 'lucide-react';
 import { BUY_NOW_CHECKOUT_URL, saveBuyNowItem } from '@/lib/buy-now';
 import SizeSelector, { type PackagingSize } from '@/components/SizeSelector';
 import { useCart } from '@/lib/cart-context';
+import MobileBuyBar from '@/components/MobileBuyBar';
 
 type ProductPurchasePanelProps = {
   productId: string;
@@ -177,6 +178,14 @@ export default function ProductPurchasePanel({ productId, slug, name, image, pac
           </div>
         </div>
       </div>
+
+      <MobileBuyBar
+        price={displayPrice}
+        onAddToCart={handleAddToCart}
+        onBuyNow={handleBuyNow}
+        disabled={!canAddToCart}
+        added={Boolean(feedback)}
+      />
     </>
   );
 }

@@ -230,7 +230,7 @@ export default function ContactPageClient({ settings }: ContactPageClientProps) 
         </div>
       </section>
 
-      <section id="contact-form" className="scroll-mt-6 rounded-[2rem] bg-brand-50 px-5 py-8 sm:px-10 lg:px-12 lg:py-8">
+      <section id="contact-form" className="scroll-mt-36 lg:scroll-mt-24 rounded-[2rem] bg-brand-50 px-5 py-8 sm:px-10 lg:px-12 lg:py-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-10">
           {/* LEFT — intro + contact details */}
           <div>

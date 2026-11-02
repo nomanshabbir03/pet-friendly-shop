@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import CategoryCard from '@/components/CategoryCard';
 
 export type CategoryItem = {
@@ -198,23 +200,35 @@ export default function CategoryGrid({ categories }: CategoryGridProps) {
       : 0;
 
   return (
-    <section className="mt-12">
+    <section className="mt-6 lg:mt-12">
       {/* Section Header */}
-      <div className="mb-10 text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">
+      <div className="mb-4 lg:mb-10 lg:text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-500 lg:text-sm">
           Browse categories
         </p>
 
-        <h2 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">
+        <h2 className="mt-1 font-display text-xl font-bold text-foreground lg:mt-3 lg:text-4xl">
           Shop by category
         </h2>
-        <span className="mx-auto mt-4 block h-1 w-16 rounded-full bg-brand-500" />
+        <span className="mx-auto mt-4 hidden h-1 w-16 rounded-full bg-brand-500 lg:block" />
       </div>
 
-      {/* Slider */}
+      {/* Mobile — swipe row of small circles */}
+      <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:hidden">
+        {categories.map((category) => (
+          <Link key={category.name} href={category.href} className="w-[76px] shrink-0 text-center">
+            <span className="relative mx-auto block h-[72px] w-[72px] overflow-hidden rounded-full border-2 border-brand-100 bg-brand-50">
+              <Image src={category.image} alt={category.name} fill sizes="72px" className="object-cover" />
+            </span>
+            <span className="mt-2 line-clamp-2 block text-xs font-medium leading-4 text-foreground">{category.name}</span>
+          </Link>
+        ))}
+      </div>
+
+      {/* lg — Slider */}
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden"
+        className="relative hidden w-full overflow-hidden lg:block"
       >
         {/* Previous Arrow */}
         {shouldShowArrows && (

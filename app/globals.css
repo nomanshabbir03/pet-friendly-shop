@@ -64,6 +64,15 @@
   --color-vet-yellow-800: #09535A;
   --color-vet-yellow-900: #05333A;
   /* end veterinary tokens */
+
+  /* Warm — orange contrast accent against the teal brand. Kept for things that should grab the
+     eye: sale/discount badges, "added" feedback, hot tags. Use sparingly. */
+  --color-warm-50: #FFF7ED;
+  --color-warm-100: #FFEDD5;
+  --color-warm-200: #FED7AA;
+  --color-warm-500: #F97316;
+  --color-warm-600: #EA580C;
+  --color-warm-700: #C2410C;
 }
 
 @theme inline {
@@ -119,6 +128,12 @@
   --color-vet-yellow-700: var(--color-vet-yellow-700);
   --color-vet-yellow-800: var(--color-vet-yellow-800);
   --color-vet-yellow-900: var(--color-vet-yellow-900);
+  --color-warm-50: var(--color-warm-50);
+  --color-warm-100: var(--color-warm-100);
+  --color-warm-200: var(--color-warm-200);
+  --color-warm-500: var(--color-warm-500);
+  --color-warm-600: var(--color-warm-600);
+  --color-warm-700: var(--color-warm-700);
   --font-sans: var(--font-poppins);
   --font-display: var(--font-poppins);
   --font-mono: var(--font-poppins);
